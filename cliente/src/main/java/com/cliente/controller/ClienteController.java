@@ -1,7 +1,6 @@
 package com.cliente.controller;
 
 import java.util.List;
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class ClienteController {
 	public void salvaCliente (@RequestBody Cliente client) {
 		cliserv.salvaCliente(client);
 	}
-
+	
 	
 	@GetMapping(value = "/lista")
 	@ApiOperation(value = "Listar todos os clientes")
@@ -43,6 +42,7 @@ public class ClienteController {
 		return ResponseEntity.ok(list);
 	}
 	
+		
 	@GetMapping (value = "/{id}")
 	@ApiOperation(value = "Buscar cliente por id")
 	public Optional<Cliente> buscarPorId(@PathVariable (name = "id", required = true) Long id)throws Exception {

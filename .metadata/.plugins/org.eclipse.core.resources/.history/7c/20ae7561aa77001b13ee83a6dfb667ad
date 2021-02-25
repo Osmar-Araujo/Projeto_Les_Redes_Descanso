@@ -1,0 +1,16 @@
+package com.cliente.entity.dto;
+
+import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CartaoCreditoDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
+}

@@ -2,9 +2,9 @@ package com.cliente.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,24 +20,25 @@ import lombok.Data;
 @Data
 public class Cliente implements Serializable{
 
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id_cliente", nullable = false, updatable = false)
 	private Long id;
 	private String nome;
-	private String CPF;
 	private Date dtNascimento;
 	private String genero;
 	private boolean status;
 	
 	@OneToMany
-	@JoinColumn (name = "id_telefone")
-	private Set<Endereco> endereco = new HashSet<>();
+	@JoinColumn (name = "id_endereco")
+	private List<Endereco> endereco;
 	
 	/*@OneToMany
 	@JoinTable (name = "tb_cartoes_credito")
-	private Set<CartaoCredito> cratao = new HashSet<>();*/
+	private Set<CartaoCredito> cartao = new HashSet<>();*/
 	
 	/*@OneToMany
 	@JoinTable (name = "tb_telefones")

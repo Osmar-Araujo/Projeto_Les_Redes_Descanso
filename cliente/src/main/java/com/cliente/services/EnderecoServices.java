@@ -38,13 +38,15 @@ public class EnderecoServices {
 		Optional<Endereco> optional = findById(id);
 		if (optional.isPresent()) {
 			Endereco End = optional.get();
-			End.setId_endereco(endDTO.getId_endereco());
+			End.setId(endDTO.getId());
 			End.setLogradouro(endDTO.getLogradouro());
 			End.setNro(endDTO.getNro());
 			End.setBairro(endDTO.getBairro());
 			End.setCidade(endDTO.getCidade());
 			End.setUf(endDTO.getUf());
 			End.setCEP(endDTO.getCEP());
+			End.setCliente(endDTO.getCliente());
+			
 						
 			return endRep.save(End);
 			

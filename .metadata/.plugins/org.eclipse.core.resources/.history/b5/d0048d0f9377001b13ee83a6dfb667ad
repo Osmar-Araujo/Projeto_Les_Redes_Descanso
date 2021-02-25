@@ -1,0 +1,13 @@
+package com.cliente.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.cliente.entity.Cliente;
+
+public interface ClienteRepository extends JpaRepository <Cliente, Long>{
+	@Query("SELECT DISTINCT obj FROM tb_cliente obj JOIN FETCH obj.tb_endereco WHERE obj.id_cliente = obj.id_endereco")
+	List<Cliente> findClienteComEndereco();
+}

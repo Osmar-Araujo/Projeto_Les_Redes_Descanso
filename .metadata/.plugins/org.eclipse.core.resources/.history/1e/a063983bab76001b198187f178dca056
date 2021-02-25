@@ -1,0 +1,38 @@
+package com.cliente.entity.dto;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+
+import com.cliente.entity.Endereco;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class EnderecoDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+	private String logradouro;
+	private String nro;
+	private String bairro;
+	private String cidade;
+	private String uf;
+	private String CEP;
+	private BigInteger cliente_id_cliente;
+	
+	public EnderecoDTO (Endereco x) {
+		id = x.getId();
+		logradouro = x.getLogradouro();
+		nro = x.getNro();
+		bairro = x.getBairro();
+		cidade = x.getCidade();
+		uf = x.getUf();
+		CEP = x.getCEP();
+		cliente_id_cliente = x.getCliente_id_cliente();
+	}
+}

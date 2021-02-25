@@ -1,0 +1,5 @@
+package com.cliente.repository;
+
+public interface CartaoCreditoRepository {
+
+}

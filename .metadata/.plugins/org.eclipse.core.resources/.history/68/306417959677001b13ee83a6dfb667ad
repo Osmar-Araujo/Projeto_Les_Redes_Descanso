@@ -1,0 +1,17 @@
+package com.cliente.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.cliente.entity.Cliente;
+
+public interface ClienteRepository extends JpaRepository <Cliente, Long>{
+	@Query("SELECT obj FROM Cliente obj JOIN FETCH obj.endereco WHERE obj.id = obj.id")
+	List<Cliente> ClienteComEndereco();
+	
+	@Query("Select c from cliente c WHERE c.endereco.id_cliente = :id_cliente")
+	public Cliente findById_cliente(@Param("id_cliente") Long id_cliente);
+}

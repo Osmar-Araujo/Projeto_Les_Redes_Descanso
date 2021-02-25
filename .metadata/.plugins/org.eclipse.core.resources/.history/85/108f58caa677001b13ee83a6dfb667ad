@@ -1,0 +1,9 @@
+package com.cliente.services;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cliente.entity.Telefone;
+
+public interface TelefoneRepository extends JpaRepository<Telefone, Long>{
+
+}

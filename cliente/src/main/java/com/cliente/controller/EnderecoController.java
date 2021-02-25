@@ -52,7 +52,7 @@ public class EnderecoController {
 	@PutMapping(value = "/{id}")
 	public String update(@PathVariable ("id") Long id, @RequestBody EnderecoDTO endDTO) throws Exception {
 		Endereco End = endServ.update(endDTO, id);
-		return "Cadastro atualizado com sucesso!" + End.getId_endereco();
+		return "Cadastro atualizado com sucesso!" + End.getId();
 	}
 	
 	@ApiOperation(value = "Deleta um endereço pelo id")

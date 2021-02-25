@@ -18,10 +18,13 @@ public class ClienteServices {
 	@Autowired
 	private ClienteRepository cliRep;
 	
+	
 	public List<ClienteDTO> findAll(){
 		List<Cliente> list = cliRep.findAll();
 		return list.stream().map(x -> new ClienteDTO(x)).collect(Collectors.toList());
 	}
+	
+	
 	
 	public Optional<Cliente> findById(Long id) {
 		Optional<Cliente> op = cliRep.findById(id);
@@ -32,6 +35,7 @@ public class ClienteServices {
 		return cliRep.save(cliEnt);
 	}
 	
+	
 	public Cliente update(Cliente cliEnt, Long id) throws Exception {
 		Assert.notNull(id,"Não foi possível atualizar o cadastro!");
 		
@@ -40,7 +44,6 @@ public class ClienteServices {
 			Cliente client = optional.get();
 			client.setNome(cliEnt.getNome());
 			client.setDtNascimento(cliEnt.getDtNascimento());
-			client.setCPF(cliEnt.getCPF());
 			client.setGenero(cliEnt.getGenero());
 			client.setStatus(true);	
 			client.setEndereco(cliEnt.getEndereco());
