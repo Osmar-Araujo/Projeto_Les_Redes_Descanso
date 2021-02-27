@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,11 +14,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table (name = "tb_cliente")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente implements Serializable{
 
 
@@ -26,26 +33,26 @@ public class Cliente implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_cliente", nullable = false, updatable = false)
-	private Long id;
+	private Long id_cliente;
 	private String nome;
 	private Date dtNascimento;
 	private String genero;
 	private boolean status;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn (name = "id_endereco")
 	private List<Endereco> endereco;
 	
-	/*@OneToMany
-	@JoinTable (name = "tb_cartoes_credito")
-	private Set<CartaoCredito> cartao = new HashSet<>();*/
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn (name = "id_cartaoCredito")
+	private List<CartaoCredito> cartao;
 	
-	/*@OneToMany
-	@JoinTable (name = "tb_telefones")
-	private Set<Telefone> telefone = new HashSet<>();*/
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn (name = "id_telefone")
+	private List<Telefone> telefone;
 	
-	/*@OneToMany
-	@JoinTable (name = "tb_usuarios")
-	private Set<Usuario> usuario = new HashSet<>();*/
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn (name = "id_usuario")
+	private List<Usuario> usuario;
 	
 }

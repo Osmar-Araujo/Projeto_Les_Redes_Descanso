@@ -1,7 +1,6 @@
 package com.cliente.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,33 +33,39 @@ public class ClienteController {
 		cliserv.salvaCliente(client);
 	}
 	
-	
 	@GetMapping(value = "/lista")
 	@ApiOperation(value = "Listar todos os clientes")
-	public ResponseEntity<List<ClienteDTO>> findAll(){
-		List<ClienteDTO> list = cliserv.findAll();
+	public ResponseEntity<List<Cliente>> findAll(){
+		List<Cliente> list = cliserv.findAll();
 		return ResponseEntity.ok(list);
 	}
 	
 		
 	@GetMapping (value = "/{id}")
 	@ApiOperation(value = "Buscar cliente por id")
-	public Optional<Cliente> buscarPorId(@PathVariable (name = "id", required = true) Long id)throws Exception {
+	public ClienteDTO buscarPorId(@PathVariable (name = "id", required = true) Long id)throws Exception {
 		return cliserv.findById(id);
 	}
 	
 	@ApiOperation(value = "Alteração de dados do cliente cadastrado")
 	@PutMapping(value = "/{id}")
 	public String update(@PathVariable ("id") Long id, @RequestBody Cliente client) throws Exception {
-		Cliente cliEnt = cliserv.update(client, id);
-		return "Cadastro atualizado com sucesso!" + cliEnt.getId();
+		ClienteDTO cliEnt = cliserv.update(client, id);
+		return "Cadastro atualizado com sucesso!" + cliEnt.getId_cliente();
 	}
 	
-	@ApiOperation(value = "Alteração de status do cliente cadastrado")
+	@ApiOperation(value = "Alteração de status do cliente cadastrado - inativar")
 	@PutMapping(value = "inativar/{id}")
 	public String inativa(@PathVariable ("id") Long id, @RequestBody Cliente client) throws Exception {
-		Cliente cliEnt = cliserv.alteraStatus(client, id);
-		return "Cadastro atualizado com sucesso!" + cliEnt.getId();
+		ClienteDTO cliEnt = cliserv.inativa(client, id);
+		return "Cadastro inativado com sucesso!" + cliEnt.getId_cliente();
+	}
+	
+	@ApiOperation(value = "Alteração de status do cliente cadastrado - ativar")
+	@PutMapping(value = "ativar/{id}")
+	public String ativa(@PathVariable ("id") Long id, @RequestBody Cliente client) throws Exception {
+		ClienteDTO cliEnt = cliserv.ativa(client, id);
+		return "Cadastro inativado com sucesso!" + cliEnt.getId_cliente();
 	}
 
 }

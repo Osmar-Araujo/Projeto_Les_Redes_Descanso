@@ -1,0 +1,24 @@
+package com.cliente.entity.dto;
+
+import java.io.Serializable;
+
+import com.cliente.entity.Cliente;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class EnderecoDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+	private String logradouro;
+	private String nro;
+	private String bairro;
+	private String cidade;
+	private String uf;
+	private String CEP;
+	private Cliente cliente;
+}

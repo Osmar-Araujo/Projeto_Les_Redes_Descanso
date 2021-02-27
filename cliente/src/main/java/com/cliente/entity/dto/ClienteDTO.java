@@ -4,16 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.cliente.entity.CartaoCredito;
 import com.cliente.entity.Cliente;
 import com.cliente.entity.Endereco;
+import com.cliente.entity.Telefone;
+import com.cliente.entity.Usuario;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
 public class ClienteDTO implements Serializable{
 	
 	
@@ -24,22 +25,41 @@ public class ClienteDTO implements Serializable{
 	private Date dtNascimento;
 	private String genero;
 	private boolean status;
+	
 	private List<Endereco> endereco;
 	
+	private List<CartaoCredito> cartao;
 	
-	/*private Set<CartaoCredito> cartao = new HashSet<>();*/
+	private List<Telefone> telefone;
 	
-	/*private Set<Telefone> telefone = new HashSet<>();*/
+	private List<Usuario> usuario;
 	
-	/*private Set<Usuario> usuario = new HashSet<>();*/
+	public static ClienteDTO consumeDTO(Cliente cli) {
+		return ClienteDTO.builder().
+				id_cliente(cli.getId_cliente()).
+				nome(cli.getNome()).
+				dtNascimento(cli.getDtNascimento()).
+				genero(cli.getGenero()).
+				status(true).
+				endereco(cli.getEndereco()).
+				cartao(cli.getCartao()).
+				telefone(cli.getTelefone()).
+				usuario(cli.getUsuario()).
+				build();
+	}
 	
-	public ClienteDTO(Cliente x) {
-		id_cliente = x.getId();
-		nome = x.getNome();
-		dtNascimento = x.getDtNascimento();
-		genero = x.getGenero();
-		status = x.isStatus();
-		endereco = x.getEndereco();
+	public static Cliente consumeEntity(ClienteDTO cliDTO) {
+		return Cliente.builder().
+				id_cliente(cliDTO.getId_cliente()).
+				nome(cliDTO.getNome()).
+				dtNascimento(cliDTO.getDtNascimento()).
+				genero(cliDTO.getGenero()).
+				status(true).
+				endereco(cliDTO.getEndereco()).
+				cartao(cliDTO.getCartao()).
+				telefone(cliDTO.getTelefone()).
+				usuario(cliDTO.getUsuario()).
+				build();
 	}
 	
 }

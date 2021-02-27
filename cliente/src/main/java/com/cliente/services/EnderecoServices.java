@@ -2,63 +2,60 @@ package com.cliente.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.cliente.entity.Cliente;
 import com.cliente.entity.Endereco;
 import com.cliente.entity.dto.EnderecoDTO;
+import com.cliente.repository.ClienteRepository;
 import com.cliente.repository.EnderecoRepository;
+
+import javassist.NotFoundException;
 
 @Service
 public class EnderecoServices {
 	
 	 @Autowired
 	private EnderecoRepository endRep;
+	 @Autowired
+	 private ClienteRepository cliRep;
 	
-	public List<EnderecoDTO> findAll(){
+	public List<Endereco> findAll(){
 		List<Endereco> list = endRep.findAll();
-		return list.stream().map(x -> new EnderecoDTO(x)).collect(Collectors.toList());
+		return list;
 	}
 	
-	public Optional<Endereco> findById(Long id) {
-		Optional<Endereco> op = endRep.findById(id);
-		return op;
+	public EnderecoDTO findById(Long id) throws NotFoundException {
+		Endereco end = endRep.findById(id).orElseThrow(() -> new NotFoundException("Registro não encontrado!!!"));
+		return EnderecoDTO.consumeDTO(end);
 	}
 
-	public Endereco salvaEndereco(Endereco end) {
-		return endRep.save(end);
+	public EnderecoDTO salvaEndereco(Endereco endereco) {
+		Optional<Cliente> cli = cliRep.findById(endereco.getCliente().getId_cliente());
+		endereco.setCliente(cli.get());
+		return EnderecoDTO.consumeDTO(endRep.save(endereco));
 	}
 	
-	public Endereco update(EnderecoDTO endDTO, Long id) throws Exception {
-		Assert.notNull(id,"Não foi possível atualizar o endereço!");
+	public EnderecoDTO update(Endereco end, Long id) {
+		Assert.notNull(id,"Não foi possível atualizar o cadastro!");
+		Endereco endereco = endRep.findById(id).get();
 		
-		Optional<Endereco> optional = findById(id);
-		if (optional.isPresent()) {
-			Endereco End = optional.get();
-			End.setId(endDTO.getId());
-			End.setLogradouro(endDTO.getLogradouro());
-			End.setNro(endDTO.getNro());
-			End.setBairro(endDTO.getBairro());
-			End.setCidade(endDTO.getCidade());
-			End.setUf(endDTO.getUf());
-			End.setCEP(endDTO.getCEP());
-			End.setCliente(endDTO.getCliente());
-			
-						
-			return endRep.save(End);
-			
-		}else {
-			throw new Exception("Não foi possível atualizar o endereço!");
-		}
+		endereco.setLogradouro(end.getLogradouro());
+		endereco.setNro(end.getNro());
+		endereco.setBairro(end.getBairro());
+		endereco.setCidade(end.getCidade());
+		endereco.setCEP(end.getCEP());
+		endereco.setUf(end.getUf());
+		endereco.setCliente(end.getCliente());		
+		
+		return EnderecoDTO.consumeDTO(endRep.save(endereco));
 	}
 	
 	public void delete(Long id) {
-		Optional<Endereco> op = findById(id);
-		if (op.isPresent()) {
 		endRep.deleteById(id);
-		}
+		
 	}
 }

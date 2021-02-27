@@ -1,0 +1,70 @@
+package com.cliente.services;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import com.cliente.entity.Cliente;
+import com.cliente.entity.Endereco;
+import com.cliente.entity.dto.EnderecoDTO;
+import com.cliente.repository.ClienteRepository;
+import com.cliente.repository.EnderecoRepository;
+
+@Service
+public class EnderecoServices {
+	
+	 @Autowired
+	private EnderecoRepository endRep;
+	 @Autowired
+	 private ClienteRepository cliRep;
+	
+	public List<EnderecoDTO> findAll(){
+		List<EnderecoDTO> list = endRep.findAll();
+		return list.stream().map(x -> new EnderecoDTO(x)).collect(Collectors.toList());
+	}
+	
+	public Optional<EnderecoDTO> findById(Long id) {
+		Optional<EnderecoDTO> op = endRep.findById(id);
+		return op;
+	}
+
+	public EnderecoDTO salvaEndereco(EnderecoDTO end) {
+		Optional<Cliente> cli = cliRep.findById(end.getCliente().getId());
+		end.setCliente(cli.get());
+		return endRep.save(end);
+	}
+	
+	public EnderecoDTO update(EnderecoDTO endDTO, Long id) throws Exception {
+		Assert.notNull(id,"Não foi possível atualizar o endereço!");
+		
+		Optional<EnderecoDTO> optional = findById(id);
+		if (optional.isPresent()) {
+			EnderecoDTO End = optional.get();
+			End.setId(endDTO.getId());
+			End.setLogradouro(endDTO.getLogradouro());
+			End.setNro(endDTO.getNro());
+			End.setBairro(endDTO.getBairro());
+			End.setCidade(endDTO.getCidade());
+			End.setUf(endDTO.getUf());
+			End.setCEP(endDTO.getCEP());
+			End.setCliente(endDTO.getCliente());
+			
+						
+			return endRep.save(End);
+			
+		}else {
+			throw new Exception("Não foi possível atualizar o endereço!");
+		}
+	}
+	
+	public void delete(Long id) {
+		Optional<EnderecoDTO> op = findById(id);
+		if (op.isPresent()) {
+		endRep.deleteById(id);
+		}
+	}
+}
