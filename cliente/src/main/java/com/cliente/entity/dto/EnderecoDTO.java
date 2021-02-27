@@ -1,18 +1,18 @@
 package com.cliente.entity.dto;
 
-import java.io.Serializable;
-
 import com.cliente.entity.Cliente;
 import com.cliente.entity.Endereco;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class EnderecoDTO implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+@AllArgsConstructor
+@NoArgsConstructor
+public class EnderecoDTO implements Parsable<Endereco> {
 	
 	private Long id;
 	private String logradouro;
@@ -23,6 +23,16 @@ public class EnderecoDTO implements Serializable {
 	private String CEP;
 	private Cliente cliente;
 	
+	
+	public EnderecoDTO (Endereco entity) {
+		this.logradouro = entity.getLogradouro();
+		this.nro = entity.getNro();
+		this.bairro = entity.getBairro();
+		this.cidade = entity.getCidade();
+		this.uf = entity.getUf();
+		this.CEP = entity.getCEP();
+		
+	}
 	public static EnderecoDTO consumeDTO(Endereco end) {
 		return EnderecoDTO.builder().
 				id(end.getId()).
@@ -47,6 +57,11 @@ public class EnderecoDTO implements Serializable {
 				CEP(endDTO.getCEP()).
 				cliente(endDTO.getCliente()).
 				build();
+	}
+
+	@Override
+	public Endereco convert() {		
+		return new Endereco(this);
 	}
 	
 }

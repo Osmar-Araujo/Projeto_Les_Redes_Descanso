@@ -3,6 +3,7 @@ package com.cliente.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.cliente.entity.dto.ClienteDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,5 +57,17 @@ public class Cliente implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn (name = "id_usuario")
 	private List<Usuario> usuario;
+	
+	public Cliente(ClienteDTO dto) {
+		this.id_cliente =dto.getId_cliente();
+		this.nome = dto.getNome();
+		this.dtNascimento = dto.getDtNascimento();
+		this.genero = dto.getGenero();
+		this.status = dto.isStatus();
+		if(!dto.getEndereco().isEmpty()) {
+			List<Endereco> listEnd = dto.getEndereco().stream().map(end -> new Endereco(end)).collect(Collectors.toList());
+			this.setEndereco(listEnd);
+		}
+	}
 	
 }
