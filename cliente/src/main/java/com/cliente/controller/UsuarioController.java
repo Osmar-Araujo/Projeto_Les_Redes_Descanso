@@ -1,0 +1,66 @@
+package com.cliente.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cliente.entity.Usuario;
+import com.cliente.entity.dto.CartaoCreditoDTO;
+import com.cliente.entity.dto.UsuarioDTO;
+import com.cliente.services.UsuarioServices;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@RestController
+@RequestMapping("/api/v1/usuarioo")
+@Api(value = "API de cadastro de clientes")
+public class UsuarioController {
+	
+	@Autowired
+	private UsuarioServices usuServ;
+	
+	@GetMapping(value = "/lista")
+	@ApiOperation(value = "Listar todos os usuarios")
+	public ResponseEntity<List<Usuario>> findAll(){
+		List<Usuario> list = usuServ.findAll();
+		return ResponseEntity.ok(list);
+	}
+	
+	@GetMapping (value = "/{id}")
+	@ApiOperation(value = "Buscar usuario pelo id")
+	public ResponseEntity<UsuarioDTO> buscarPorId(@PathVariable (name = "id", required = true) Long id)throws Exception {
+		UsuarioDTO usuDTO = usuServ.findById(id);
+		return ResponseEntity.ok(usuDTO);
+	}
+	
+	@ApiOperation(value = "Alteração do usuário")
+	@PutMapping(value = "/{id}")
+	public ResponseEntity <CartaoCreditoDTO> update(@PathVariable ("id") Long id, @RequestBody UsuarioDTO usuDTO) throws Exception {
+		usuServ.update(usuDTO, id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@ApiOperation(value = "Alteração do usuário")
+	@PutMapping(value = "/alterasenha/{id}")
+	public ResponseEntity <CartaoCreditoDTO> AlterarSenha(@PathVariable ("id") Long id, @RequestBody UsuarioDTO usuDTO) throws Exception {
+		usuServ.AlteraSenha(usuDTO, id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@ApiOperation(value = "Deleta um cartão de crédito pelo id")
+	@DeleteMapping(value = "/{id}")
+	public String delete(@PathVariable ("id")Long id) {
+		usuServ.deletar(id);
+		return "Usuário deletado com sucesso!";
+	}
+
+}

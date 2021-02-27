@@ -11,11 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "tb_cartao_credito")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartaoCredito implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -23,10 +29,10 @@ public class CartaoCredito implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_cartao", nullable = false, updatable = false)
-	private Long id;
+	private Long id_cartao;
 	private String nroCartao;
 	private String dataValidade;
-	private String codigoSegurança;
+	private String codigoSeguranca;
 	private String nome;
 	
 	@ManyToOne

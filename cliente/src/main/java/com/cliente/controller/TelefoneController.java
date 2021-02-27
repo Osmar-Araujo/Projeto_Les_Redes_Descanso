@@ -1,0 +1,60 @@
+package com.cliente.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cliente.entity.Telefone;
+import com.cliente.entity.dto.TelefoneDTO;
+import com.cliente.services.TelefoneServices;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@RestController
+@RequestMapping("/api/v1/telefone")
+@Api(value = "API de cadastro de clientes")
+public class TelefoneController {
+	
+	@Autowired
+	private TelefoneServices telServ;
+	
+	@GetMapping(value = "/lista")
+	@ApiOperation(value = "Listar todos os telefones")
+	public ResponseEntity<List<Telefone>> findAll(){
+		List<Telefone> list = telServ.findAll();
+		return ResponseEntity.ok(list);
+	}
+	
+	@GetMapping (value = "/{id}")
+	@ApiOperation(value = "Buscar telefone por id")
+	public ResponseEntity<TelefoneDTO> buscarPorId(@PathVariable (name = "id", required = true) Long id)throws Exception {
+		TelefoneDTO telDto = telServ.findById(id);
+		return ResponseEntity.ok(telDto);
+	}
+	
+	@ApiOperation(value = "Alteração do telefone cadastrado")
+	@PutMapping(value = "/{id}")
+	public ResponseEntity <TelefoneDTO> update(@PathVariable ("id") Long id, @RequestBody TelefoneDTO telDTO) throws Exception {
+		telServ.update(telDTO, id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	@ApiOperation(value = "Deleta um telefone pelo id")
+	@DeleteMapping(value = "/{id}")
+	public String delete(@PathVariable ("id")Long id) {
+		telServ.delete(id);
+		return "Telefone deletado com sucesso!";
+	}
+
+
+}

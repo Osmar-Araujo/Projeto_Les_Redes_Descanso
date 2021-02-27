@@ -14,7 +14,7 @@ public class EnderecoDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	private Long id_endereco;
 	private String logradouro;
 	private String nro;
 	private String bairro;
@@ -25,7 +25,7 @@ public class EnderecoDTO implements Serializable {
 	
 	public static EnderecoDTO consumeDTO(Endereco end) {
 		return EnderecoDTO.builder().
-				id(end.getId()).
+				id_endereco(end.getId_endereco()).
 				logradouro(end.getLogradouro()).
 				nro(end.getNro()).
 				bairro(end.getBairro()).
@@ -38,7 +38,7 @@ public class EnderecoDTO implements Serializable {
 	
 	public static Endereco consumeEntity(EnderecoDTO endDTO) {
 		return Endereco.builder().
-				id(endDTO.getId()).
+				id_endereco(endDTO.getId_endereco()).
 				logradouro(endDTO.getLogradouro()).
 				nro(endDTO.getNro()).
 				bairro(endDTO.getBairro()).
