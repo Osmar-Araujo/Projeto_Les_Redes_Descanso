@@ -22,54 +22,91 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
+
 @RequestMapping("/api/v1/endereco")
+
 @Api(value = "API de Cadastro de clientes")
+
 public class EnderecoController {
 
 	@Autowired
+
 	private EnderecoServices service;
 
 	@ApiOperation(value = "Listar todos os endereços")
+
 	@GetMapping
+
 	public ResponseEntity<List<EnderecoDTO>> findAll() {
+
 		List<EnderecoDTO> enderecos = service.findAll();
+
 		return enderecos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(enderecos);
+
 	}
 
 	@ApiOperation(value = "Buscar endereço por id")
+
 	@GetMapping(value = "/{id}")
+
 	public ResponseEntity<EnderecoDTO> buscarPorId(@PathVariable(name = "id", required = true) Long id) {
+
 		EnderecoDTO dto = service.findById(id);
+
 		return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
+
 	}
 
 	@ApiOperation(value = "Salvar um endereço na base")
+
 	@PostMapping
+
 	public ResponseEntity<EnderecoDTO> salvar(@RequestBody EnderecoDTO dto) {
+
 		EnderecoDTO end = service.insert(dto);
-		URI location = getUri(end.getId());
+
+		URI location = getUri(end.getId_endereco());
+
 		return ResponseEntity.created(location).build();
+
 	}
 
 	@ApiOperation(value = "Alteração de dados do endereço cadastrado")
+
 	@PutMapping(value = "/{id}")
+
 	public ResponseEntity<EnderecoDTO> update(@PathVariable("id") Long id, @RequestBody EnderecoDTO dto) {
-		dto.setId(id);
+
+		dto.setId_endereco(id);
+
 		EnderecoDTO endDTO = service.update(dto, id);
+
 		return endDTO == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(endDTO);
+
 	}
 
 	@ApiOperation(value = "Deleta um endereço pelo id")
+
 	@DeleteMapping(value = "/{id}")
+
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+
 		service.delete(id);
+
 		return ResponseEntity.ok().build();
+
 	}
 
 	/*
+	 * 
 	 * Método para gerar URI no retorno do post
+	 * 
 	 */
+
 	private URI getUri(Long id) {
+
 		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+
 	}
+
 }

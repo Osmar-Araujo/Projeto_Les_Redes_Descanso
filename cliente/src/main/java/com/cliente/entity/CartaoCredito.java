@@ -29,7 +29,7 @@ public class CartaoCredito implements Parsable<CartaoCreditoDTO> {
 	private Long id;
 	private String nroCartao;
 	private String dataValidade;
-	private String codigoSegurança;
+	private String codigoSeguranca;
 	private String nome;
 
 	@ManyToOne
@@ -40,7 +40,7 @@ public class CartaoCredito implements Parsable<CartaoCreditoDTO> {
 		this.id = dto.getId();
 		this.nroCartao = dto.getNroCartao();
 		this.dataValidade = dto.getDataValidade();
-		this.codigoSegurança = dto.getCodigoSegurança();
+		this.codigoSeguranca = dto.getCodigoSeguranca();
 		this.nome = dto.getNome();
 		if (this.cliente != null)
 			this.cliente = new Cliente(dto.getCliente());

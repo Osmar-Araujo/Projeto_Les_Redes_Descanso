@@ -24,7 +24,7 @@ public class ClienteDTO implements Parsable<Cliente> {
 
 	private List<EnderecoDTO> endereco;
 
-	private List<CartaoCreditoDTO> cartao;
+	//private List<CartaoCreditoDTO> cartao;
 
 	/*
 	 * private List<TelefoneDTO> telefone;
@@ -38,7 +38,7 @@ public class ClienteDTO implements Parsable<Cliente> {
 		this.dtNascimento = entity.getDtNascimento();
 		this.genero = entity.getGenero();
 		this.status = entity.isStatus();
-		if (!entity.getEndereco().isEmpty()) {
+		if (entity.getEndereco() != null) {
 			List<EnderecoDTO> listEnd = entity.getEndereco().stream().map(end -> new EnderecoDTO(end))
 					.collect(Collectors.toList());
 			this.setEndereco(listEnd);

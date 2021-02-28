@@ -18,5 +18,4 @@ public class EnderecoServices implements GenericService<Endereco, Long, Endereco
 	public JpaRepository<Endereco, Long> getRepository() {
 		return reporitory;
 	}
-
 }

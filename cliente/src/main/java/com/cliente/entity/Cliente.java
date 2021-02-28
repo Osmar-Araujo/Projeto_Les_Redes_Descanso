@@ -59,7 +59,7 @@ public class Cliente implements Parsable<ClienteDTO> {
 		this.dtNascimento = dto.getDtNascimento();
 		this.genero = dto.getGenero();
 		this.status = dto.isStatus();
-		if (!dto.getEndereco().isEmpty()) {
+		if (dto.getEndereco() != null) {
 			List<Endereco> listEnd = dto.getEndereco().stream().map(end -> new Endereco(end))
 					.collect(Collectors.toList());
 			this.setEndereco(listEnd);

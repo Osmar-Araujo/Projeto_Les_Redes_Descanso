@@ -1,11 +1,12 @@
 package com.cliente.entity.dto;
 
 import com.cliente.entity.CartaoCredito;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+@Data 
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartaoCreditoDTO implements Parsable<CartaoCredito> {
@@ -22,7 +23,7 @@ public class CartaoCreditoDTO implements Parsable<CartaoCredito> {
 		this.id = entity.getId();
 		this.nroCartao = entity.getNroCartao();
 		this.dataValidade = entity.getDataValidade();
-		this.codigoSegurança = entity.getCodigoSegurança();
+		this.codigoSeguranca = entity.getCodigoSeguranca();
 		this.nome = entity.getNome();
 		if (this.cliente != null)
 			this.cliente = new ClienteDTO(entity.getCliente());
@@ -32,5 +33,5 @@ public class CartaoCreditoDTO implements Parsable<CartaoCredito> {
 	@Override
 	public CartaoCredito convert() {
 		return new CartaoCredito(this);
-
+	}
 }

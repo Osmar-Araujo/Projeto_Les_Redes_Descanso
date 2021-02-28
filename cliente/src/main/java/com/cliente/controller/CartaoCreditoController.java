@@ -27,32 +27,6 @@ public class CartaoCreditoController {
 	@Autowired
 	private CartaoCreditoServices cartServ;
 	
-	@GetMapping(value = "/lista")
-	@ApiOperation(value = "Listar todos os cartões")
-	public ResponseEntity<List<CartaoCredito>> findAll(){
-		List<CartaoCredito> list = cartServ.findAll();
-		return ResponseEntity.ok(list);
-	}
 	
-	@GetMapping (value = "/{id}")
-	@ApiOperation(value = "Buscar cartão de crédito por id")
-	public ResponseEntity<CartaoCreditoDTO> buscarPorId(@PathVariable (name = "id", required = true) Long id)throws Exception {
-		CartaoCreditoDTO cartDTO = cartServ.findById(id);
-		return ResponseEntity.ok(cartDTO);
-	}
-	
-	@ApiOperation(value = "Alteração do cartão cadastrado")
-	@PutMapping(value = "/{id}")
-	public ResponseEntity <CartaoCreditoDTO> update(@PathVariable ("id") Long id, @RequestBody CartaoCreditoDTO cartDTO) throws Exception {
-		cartServ.update(cartDTO, id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@ApiOperation(value = "Deleta um cartão de crédito pelo id")
-	@DeleteMapping(value = "/{id}")
-	public String delete(@PathVariable ("id")Long id) {
-		cartServ.deletar(id);
-		return "Cartão deletado com sucesso!";
-	}
 	
 }
