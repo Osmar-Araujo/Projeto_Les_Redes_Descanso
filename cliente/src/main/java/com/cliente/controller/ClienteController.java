@@ -68,7 +68,7 @@ public class ClienteController {
 	}
 
 	@ApiOperation(value = "Alteração de status do cliente cadastrado - ativar")
-	@PutMapping(value = "ativar/{id}")
+	@PatchMapping(value = "ativar/{id}")
 	public ResponseEntity<ClienteDTO> ativa(@PathVariable(name = "id", required = true) Long id) {
 		ClienteDTO cliEnt = service.ativa(id);
 		return cliEnt == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cliEnt);
