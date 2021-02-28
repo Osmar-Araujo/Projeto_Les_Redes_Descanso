@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cliente.entity.Endereco;
 import com.cliente.entity.dto.EnderecoDTO;
 import com.cliente.services.EnderecoServices;
 
@@ -30,14 +29,14 @@ public class EnderecoController {
 	
 	@PostMapping
 	@ApiOperation(value = "Salvar um endereço na base")
-	public void salvaEnd(@RequestBody Endereco endereco) {
-		endServ.salvaEndereco(endereco);
+	public void salvaEnd(@RequestBody EnderecoDTO dto) {
+		endServ.insert(dto);
 	}
 	
 	@GetMapping(value = "/lista")
 	@ApiOperation(value = "Listar todos os endereços")
-	public ResponseEntity<List<Endereco>> findAll(){
-		List<Endereco> list = endServ.findAll();
+	public ResponseEntity<List<EnderecoDTO>> findAll(){
+		List<EnderecoDTO> list = endServ.findAll();
 		return ResponseEntity.ok(list);
 	}
 	
@@ -50,7 +49,7 @@ public class EnderecoController {
 	
 	@ApiOperation(value = "Alteração de dados do endereço cadastrado")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity <EnderecoDTO> update(@PathVariable ("id") Long id, @RequestBody Endereco endDTO) throws Exception {
+	public ResponseEntity <EnderecoDTO> update(@PathVariable ("id") Long id, @RequestBody EnderecoDTO endDTO) throws Exception {
 		endServ.update(endDTO, id);
 		return ResponseEntity.noContent().build();
 	}

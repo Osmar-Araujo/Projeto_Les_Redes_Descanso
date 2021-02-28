@@ -2,60 +2,63 @@ package com.cliente.services;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-
-import com.cliente.entity.Cliente;
 import com.cliente.entity.Endereco;
 import com.cliente.entity.dto.EnderecoDTO;
-import com.cliente.repository.ClienteRepository;
 import com.cliente.repository.EnderecoRepository;
 
-import javassist.NotFoundException;
+import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
-public class EnderecoServices {
+public class EnderecoServices implements GenericService<Endereco, Long, EnderecoDTO> {
+	
+	@Override
+	public JpaRepository<Endereco, Long> getRepository() {
+		return null;
+	}
 	
 	 @Autowired
 	private EnderecoRepository endRep;
-	 @Autowired
-	 private ClienteRepository cliRep;
 	
-	public List<Endereco> findAll(){
-		List<Endereco> list = endRep.findAll();
-		return list;
+	public List<EnderecoDTO> listarEnderecos(Endereco end){
+		
+		List<Endereco> list = getRepository().findAll();
+		if (list.isEmpty())
+			new ObjectNotFoundException("Nenhum registro encontrado");
+		return list.stream().map(x -> x.convert()).collect(Collectors.toList());
 	}
 	
-	public EnderecoDTO findById(Long id) throws NotFoundException {
-		Endereco end = endRep.findById(id).orElseThrow(() -> new NotFoundException("Registro não encontrado!!!"));
-		return EnderecoDTO.consumeDTO(end);
+	public EnderecoDTO findById(Long id) throws ObjectNotFoundException {
+		
+		Optional<Endereco> entity = getRepository().findById(id);
+		return entity.map(x -> x.convert())
+				.orElseThrow(() -> new ObjectNotFoundException("Nenhum registro encontrado"));
 	}
 
-	public EnderecoDTO salvaEndereco(Endereco endereco) {
-		Optional<Cliente> cli = cliRep.findById(endereco.getCliente().getId_cliente());
-		endereco.setCliente(cli.get());
-		return EnderecoDTO.consumeDTO(endRep.save(endereco));
+	public EnderecoDTO salvaEndereco(EnderecoDTO dto) {
+		Endereco entity = this.getRepository().save(dto.convert());
+		return entity.convert();	
 	}
 	
-	public EnderecoDTO update(Endereco end, Long id) {
-		Assert.notNull(id,"Não foi possível atualizar o cadastro!");
-		Endereco endereco = endRep.findById(id).get();
+	public EnderecoDTO update(EnderecoDTO dto, Long id) throws ObjectNotFoundException {
 		
-		endereco.setLogradouro(end.getLogradouro());
-		endereco.setNro(end.getNro());
-		endereco.setBairro(end.getBairro());
-		endereco.setCidade(end.getCidade());
-		endereco.setCEP(end.getCEP());
-		endereco.setUf(end.getUf());
-		endereco.setCliente(end.getCliente());		
-		
-		return EnderecoDTO.consumeDTO(endRep.save(endereco));
+		Optional<Endereco> optional = this.getRepository().findById(id);
+		if (optional.isPresent()) {
+			Endereco local = optional.get();
+			local = dto.convert();
+			local = this.getRepository().save(local);
+			return local.convert();
+		} else {
+			throw new ObjectNotFoundException("Nenhum registro encontrado");
+		}	
 	}
 	
 	public void delete(Long id) {
 		endRep.deleteById(id);
 		
 	}
+
 }

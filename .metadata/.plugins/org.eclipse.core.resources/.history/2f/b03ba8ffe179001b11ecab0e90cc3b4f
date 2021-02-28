@@ -1,0 +1,13 @@
+package com.cliente.entity.dto;
+
+public interface Parsbale<T> {
+
+	/**
+	 * 
+	 * @param parsable
+	 * @return
+	 */
+	T convert();
+
+
+}
