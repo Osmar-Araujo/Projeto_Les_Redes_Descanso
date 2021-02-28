@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cliente.entity.dto.Parsable;
-
-import javassist.tools.rmi.ObjectNotFoundException;
+import com.cliente.exceptions.ObjectNotFoundException;
 
 public interface GenericService<T extends Parsable<DTO>, ID, DTO extends Parsable<T>> {
+
 	JpaRepository<T, ID> getRepository();
 
 	default List<DTO> findAll() {
@@ -19,10 +19,10 @@ public interface GenericService<T extends Parsable<DTO>, ID, DTO extends Parsabl
 		if (list.isEmpty())
 			new ObjectNotFoundException("Nenhum registro encontrado");
 		return list.stream().map(x -> x.convert()).collect(Collectors.toList());
-		
+
 	}
 
-	default DTO findById(ID id) throws ObjectNotFoundException {
+	default DTO findById(ID id) {
 
 		Optional<T> entity = getRepository().findById(id);
 		return entity.map(x -> x.convert())
@@ -35,7 +35,7 @@ public interface GenericService<T extends Parsable<DTO>, ID, DTO extends Parsabl
 		return entity.convert();
 	}
 
-	default DTO update(DTO dto, ID id) throws ObjectNotFoundException {
+	default DTO update(DTO dto, ID id) {
 
 		Optional<T> optional = this.getRepository().findById(id);
 		if (optional.isPresent()) {

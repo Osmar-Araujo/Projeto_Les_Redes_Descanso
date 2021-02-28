@@ -1,45 +1,10 @@
 package com.cliente.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-
-import com.cliente.entity.Telefone;
-import com.cliente.entity.dto.TelefoneDTO;
-import com.cliente.repository.TelefoneRepository;
-
-import javassist.NotFoundException;
 
 @Service
-public class TelefoneServices {
+public class TelefoneServices  {
 	
-	@Autowired
-	private TelefoneRepository telRepo;
-		
-	public List<Telefone> findAll(){
-		List<Telefone> list = telRepo.findAll();
-		return list;
-	}
 	
-	public TelefoneDTO update(TelefoneDTO teldto, Long id) {
-		Assert.notNull(id,"Não foi possível atualizar o cadastro!");
-		Telefone tel = telRepo.findById(id).get();
-		
-		tel.setDdd(teldto.getDdd());
-		tel.setNumero(teldto.getNumero());
-		tel.setCliente(teldto.getCliente());
-		
-		return TelefoneDTO.consumeDTO(telRepo.save(tel));
-	}
 	
-	public TelefoneDTO findById(Long id) throws NotFoundException {
-		Telefone tel = telRepo.findById(id).orElseThrow(() -> new NotFoundException("Telefone não encontrado!!!"));
-		return TelefoneDTO.consumeDTO(tel);
-	}
-	
-	public void delete (Long id) {
-		telRepo.deleteById(id);
-	}
 }

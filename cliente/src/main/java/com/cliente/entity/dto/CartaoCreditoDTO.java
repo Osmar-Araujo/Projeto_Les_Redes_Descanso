@@ -1,45 +1,36 @@
 package com.cliente.entity.dto;
 
-import java.io.Serializable;
-
 import com.cliente.entity.CartaoCredito;
-import com.cliente.entity.Cliente;
-
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-public class CartaoCreditoDTO implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CartaoCreditoDTO implements Parsable<CartaoCredito> {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Long id_cartao;
+	private Long id;
 	private String nroCartao;
 	private String dataValidade;
 	private String codigoSeguranca;
 	private String nome;
-	
-	private Cliente cliente;
-	
-	public static CartaoCreditoDTO consumeDTO(CartaoCredito cartao) {
-		return CartaoCreditoDTO.builder().
-				id_cartao(cartao.getId_cartao()).
-				nroCartao(cartao.getNroCartao()).
-				dataValidade(cartao.getDataValidade()).
-				codigoSeguranca(cartao.getCodigoSeguranca()).
-				nome(cartao.getNome()).
-				build();
+
+	private ClienteDTO cliente;
+
+	public CartaoCreditoDTO(CartaoCredito entity) {
+		this.id = entity.getId();
+		this.nroCartao = entity.getNroCartao();
+		this.dataValidade = entity.getDataValidade();
+		this.codigoSegurança = entity.getCodigoSegurança();
+		this.nome = entity.getNome();
+		if (this.cliente != null)
+			this.cliente = new ClienteDTO(entity.getCliente());
+
 	}
-	
-	public static CartaoCredito consumeEntity(CartaoCreditoDTO cartaodto) {
-		return CartaoCredito.builder().
-				id_cartao(cartaodto.getId_cartao()).
-				nroCartao(cartaodto.getNroCartao()).
-				dataValidade(cartaodto.getDataValidade()).
-				codigoSeguranca(cartaodto.getCodigoSeguranca()).
-				nome(cartaodto.getNome()).
-				build();
-	}
+
+	@Override
+	public CartaoCredito convert() {
+		return new CartaoCredito(this);
 
 }

@@ -21,19 +21,11 @@ public class EnderecoDTO implements Parsable<Endereco> {
 	private String CEP;
 	private Cliente cliente;
 	
-	public EnderecoDTO (Endereco entity) {
-		this.logradouro = entity.getLogradouro();
-		this.nro = entity.getNro();
-		this.bairro = entity.getBairro();
-		this.cidade = entity.getCidade();
-		this.uf = entity.getUf();
-		this.CEP = entity.getCEP();
 	}
 
 	@Override
 	public Endereco convert() {		
 		return new Endereco(this);
 	}
-	
 	
 }
