@@ -33,7 +33,7 @@ public class ClienteController {
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<ClienteDTO> clientes = service.findAll();
-		return clientes.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(clientes);
+		return clientes.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(clientes);
 	}
 
 	@ApiOperation(value = "Buscar cliente por id")

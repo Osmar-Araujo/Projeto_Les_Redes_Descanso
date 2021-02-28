@@ -33,7 +33,7 @@ public class EnderecoController {
 	@GetMapping
 	public ResponseEntity<List<EnderecoDTO>> findAll() {
 		List<EnderecoDTO> enderecos = service.findAll();
-		return enderecos.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(enderecos);
+		return enderecos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(enderecos);
 	}
 
 	@ApiOperation(value = "Buscar endereço por id")
