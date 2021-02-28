@@ -41,19 +41,17 @@ public class Cliente implements Parsable<ClienteDTO> {
 	@JoinColumn(name = "id_endereco")
 	private List<Endereco> endereco;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_cartaoCredito")
-	private List<CartaoCredito> cartao;
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "id_cartaoCredito")
+//	private List<CartaoCredito> cartao;
 
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "id_telefone") private List<Telefone> telefone;
-	 * 
-	 * @OneToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "id_usuario") private List<Usuario> usuario;
-	 */
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "id_telefone")
+//	private List<Telefone> telefone;
+
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "id_usuario")
+//	private List<Usuario> usuario;
 
 	public Cliente(ClienteDTO dto) {
 		this.id_cliente = dto.getId_cliente();
@@ -66,11 +64,13 @@ public class Cliente implements Parsable<ClienteDTO> {
 					.collect(Collectors.toList());
 			this.setEndereco(listEnd);
 		}
-		if (!dto.getCartao().isEmpty()) {
-			List<CartaoCredito> listCartao = dto.getCartao().stream().map(cart -> new CartaoCredito(cart))
-					.collect(Collectors.toList());
-			this.setCartao(listCartao);
-		}
+		
+//		if (!dto.getCartao().isEmpty()) {
+//			List<CartaoCredito> listCartao = dto.getCartao().stream().map(cart -> new CartaoCredito(cart))
+//					.collect(Collectors.toList());
+//			this.setCartao(listCartao);
+//		}
+		 
 	}
 
 	@Override
