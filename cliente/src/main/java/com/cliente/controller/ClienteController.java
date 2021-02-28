@@ -56,8 +56,8 @@ public class ClienteController {
 	public ResponseEntity<ClienteDTO> update(@PathVariable(name = "id", required = true) Long id,
 			@RequestBody ClienteDTO dto) {
 		dto.setId_cliente(id);
-		ClienteDTO cliEnt = service.update(dto, id);
-		return cliEnt == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cliEnt);
+		ClienteDTO clieDTO = service.update(dto, id);
+		return clieDTO == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(clieDTO);
 	}
 
 	@ApiOperation(value = "Alteração de status do cliente cadastrado - inativar")
