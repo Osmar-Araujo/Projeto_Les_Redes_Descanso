@@ -6,15 +6,15 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.carros.api.exception.ObjectNotFoundException;
-import com.carros.domain.dto.Parsable;
+import com.cliente.entity.dto.Parsable;
+import com.cliente.exceptions.ObjectNotFoundException;
 
 public interface GenericService<T extends Parsable<DTO>, ID, DTO extends Parsable<T>> {
 
 	JpaRepository<T, ID> getRepository();
 
 	default List<DTO> findAll() {
-		
+
 		List<T> list = getRepository().findAll();
 		if (list.isEmpty())
 			new ObjectNotFoundException("Nenhum registro encontrado");
@@ -23,7 +23,7 @@ public interface GenericService<T extends Parsable<DTO>, ID, DTO extends Parsabl
 	}
 
 	default DTO findById(ID id) {
-		
+
 		Optional<T> entity = getRepository().findById(id);
 		return entity.map(x -> x.convert())
 				.orElseThrow(() -> new ObjectNotFoundException("Nenhum registro encontrado"));
@@ -41,7 +41,7 @@ public interface GenericService<T extends Parsable<DTO>, ID, DTO extends Parsabl
 		if (optional.isPresent()) {
 			T local = optional.get();
 			local = dto.convert();
-			local = this.getRepository().save(local);			
+			local = this.getRepository().save(local);
 			return local.convert();
 		} else {
 			throw new ObjectNotFoundException("Nenhum registro encontrado");

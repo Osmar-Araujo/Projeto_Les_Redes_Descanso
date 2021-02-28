@@ -27,7 +27,7 @@ public class Endereco implements Parsable<EnderecoDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_endereco", nullable = false, updatable = false)
+	@Column(name = "id_endereco")
 	private Long id;
 
 	private String logradouro;

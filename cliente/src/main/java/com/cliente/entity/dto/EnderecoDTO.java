@@ -4,12 +4,10 @@ import com.cliente.entity.Cliente;
 import com.cliente.entity.Endereco;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnderecoDTO implements Parsable<Endereco> {
@@ -32,31 +30,6 @@ public class EnderecoDTO implements Parsable<Endereco> {
 		this.uf = entity.getUf();
 		this.CEP = entity.getCEP();
 		
-	}
-	public static EnderecoDTO consumeDTO(Endereco end) {
-		return EnderecoDTO.builder().
-				id(end.getId()).
-				logradouro(end.getLogradouro()).
-				nro(end.getNro()).
-				bairro(end.getBairro()).
-				cidade(end.getCidade()).
-				uf(end.getUf()).
-				CEP(end.getCEP()).
-				cliente(end.getCliente()).
-				build();
-	}
-	
-	public static Endereco consumeEntity(EnderecoDTO endDTO) {
-		return Endereco.builder().
-				id(endDTO.getId()).
-				logradouro(endDTO.getLogradouro()).
-				nro(endDTO.getNro()).
-				bairro(endDTO.getBairro()).
-				cidade(endDTO.getCidade()).
-				uf(endDTO.getUf()).
-				CEP(endDTO.getCEP()).
-				cliente(endDTO.getCliente()).
-				build();
 	}
 
 	@Override
