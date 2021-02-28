@@ -21,9 +21,9 @@ import com.cliente.services.ClienteServices;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@Api(value = "API de Cadastro de clientes")
 @RestController
 @RequestMapping("/api/v1/clientes")
-@Api(value = "API de Cadastro de clientes")
 public class ClienteController {
 
 	@Autowired
