@@ -1,7 +1,6 @@
 package com.cliente.entity.dto;
 
 import com.cliente.entity.CartaoCredito;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ public class CartaoCreditoDTO implements Parsable<CartaoCredito> {
 	private Long id;
 	private String nroCartao;
 	private String dataValidade;
-	private String codigoSegurança;
+	private String codigoSeguranca;
 	private String nome;
 
 	private ClienteDTO cliente;
@@ -33,6 +32,5 @@ public class CartaoCreditoDTO implements Parsable<CartaoCredito> {
 	@Override
 	public CartaoCredito convert() {
 		return new CartaoCredito(this);
-	}
 
 }

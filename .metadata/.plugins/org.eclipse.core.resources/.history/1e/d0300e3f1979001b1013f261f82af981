@@ -1,0 +1,35 @@
+package com.cliente.entity.dto;
+
+import java.io.Serializable;
+
+import com.cliente.entity.CartaoCredito;
+import com.cliente.entity.Cliente;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class CartaoCreditoDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+	private String nroCartao;
+	private String dataValidade;
+	private String codigoSeguranca;
+	private String nome;
+	
+	private Cliente cliente;
+	
+	public static CartaoCreditoDTO consumeDTO(CartaoCredito cartao) {
+		return CartaoCreditoDTO.builder().
+				id(cartao.getId()).
+				nroCartao(cartao.getNroCartao()).
+				dataValidade(cartao.getDataValidade()).
+				codigoSeguranca(cartao.getCodigoSeguranca()).
+				nome(cartao.getNome()).
+				build();
+	}
+
+}

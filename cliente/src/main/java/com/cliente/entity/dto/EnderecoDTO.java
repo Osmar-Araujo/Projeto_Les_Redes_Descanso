@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EnderecoDTO implements Parsable<Endereco> {
 	
-	private Long id;
+	private Long id_endereco;
 	private String logradouro;
 	private String nro;
 	private String bairro;
@@ -21,15 +21,6 @@ public class EnderecoDTO implements Parsable<Endereco> {
 	private String CEP;
 	private Cliente cliente;
 	
-	
-	public EnderecoDTO (Endereco entity) {
-		this.logradouro = entity.getLogradouro();
-		this.nro = entity.getNro();
-		this.bairro = entity.getBairro();
-		this.cidade = entity.getCidade();
-		this.uf = entity.getUf();
-		this.CEP = entity.getCEP();
-		
 	}
 
 	@Override

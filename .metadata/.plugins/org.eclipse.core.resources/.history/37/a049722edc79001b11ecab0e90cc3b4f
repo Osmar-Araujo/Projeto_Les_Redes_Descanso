@@ -1,0 +1,5 @@
+package com.cliente.entity.dto;
+
+public interface Parsbale {
+
+}

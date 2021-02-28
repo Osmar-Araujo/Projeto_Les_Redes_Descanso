@@ -1,0 +1,33 @@
+package com.cliente.entity.dto;
+
+import com.cliente.entity.Cliente;
+import com.cliente.entity.Endereco;
+
+public class EnderecoDTO implements Parsbale<Endereco> {
+	
+	private Long id;
+	private String logradouro;
+	private String nro;
+	private String bairro;
+	private String cidade;
+	private String uf;
+	private String CEP;
+	private Cliente cliente;
+	
+	
+	public EnderecoDTO (Endereco entity) {
+		this.logradouro = entity.getLogradouro();
+		this.nro = entity.getNro();
+		this.bairro = entity.getBairro();
+		this.cidade = entity.getCidade();
+		this.uf = entity.getUf();
+		this.CEP = entity.getCEP();
+		
+	}
+
+	@Override
+	public Endereco convert() {		
+		return new Endereco(this);
+	}
+	
+}

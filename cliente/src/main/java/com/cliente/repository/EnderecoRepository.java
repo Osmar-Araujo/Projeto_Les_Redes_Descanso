@@ -5,11 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.cliente.entity.Endereco;
-import com.cliente.entity.dto.EnderecoDTO;
 
 @Repository
 public interface EnderecoRepository extends JpaRepository <Endereco, Long>{
 
-	Endereco save(EnderecoDTO end);
 
 }

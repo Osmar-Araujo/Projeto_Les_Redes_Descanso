@@ -11,19 +11,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "tb_telefone")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Telefone implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id_cartao", nullable = false, updatable = false)
-	private Long id;
+	@Column(name = "id_telefone", nullable = false, updatable = false)
+	private Long id_telefone;
 	
 	private String ddd;
 	private String numero;

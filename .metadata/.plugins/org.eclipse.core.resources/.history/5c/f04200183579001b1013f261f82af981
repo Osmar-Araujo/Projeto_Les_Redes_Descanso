@@ -1,0 +1,5 @@
+package com.cliente.controller;
+
+public class UsuarioController {
+
+}

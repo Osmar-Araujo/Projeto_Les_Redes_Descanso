@@ -9,5 +9,4 @@ public interface Parsable<T> {
 	 */
 	T convert();
 
-
 }
