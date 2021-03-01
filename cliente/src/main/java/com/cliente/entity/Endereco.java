@@ -48,6 +48,7 @@ public class Endereco implements Parsable<EnderecoDTO> {
 		this.cidade = dto.getCidade();
 		this.uf = dto.getUf();
 		this.CEP = dto.getCEP();
+		
 		Cliente cli = new Cliente();
 		cli.setId_cliente(dto.getCliente().getId_cliente());
 		this.cliente = cli;

@@ -24,7 +24,7 @@ public class ClienteDTO implements Parsable<Cliente> {
 
 	private List<EnderecoDTO> endereco;
 
-	//private List<CartaoCreditoDTO> cartao;
+	private List<CartaoCreditoDTO> cartao;
 
 	
 	 private List<TelefoneDTO> telefone;
@@ -45,10 +45,17 @@ public class ClienteDTO implements Parsable<Cliente> {
 		}
 		
 		if (entity.getTelefone() != null) {
-			List<TelefoneDTO> listTel = entity.getTelefone().stream().map(end -> new TelefoneDTO(end))
+			List<TelefoneDTO> listTel = entity.getTelefone().stream().map(tel -> new TelefoneDTO(tel))
 					.collect(Collectors.toList());
 			this.setTelefone(listTel);
 		}
+		
+		if (entity.getCartao() != null) {
+			List<CartaoCreditoDTO> listCard = entity.getCartao().stream().map(card -> new CartaoCreditoDTO(card))
+					.collect(Collectors.toList());
+			this.setCartao(listCard);
+		}
+
 	}
 
 	@Override
