@@ -30,10 +30,6 @@ public class CartaoCreditoDTO implements Parsable<CartaoCredito> {
 		/*if (this.cliente != null)
 			this.cliente = new ClienteDTO(entity.getCliente());*/
 		
-		ClienteDTO cli = new ClienteDTO();
-		cli.setId_cliente(entity.getCliente().getId_cliente());
-		this.cliente = cli;
-		
 	}
 
 	@Override

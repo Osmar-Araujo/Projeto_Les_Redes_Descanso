@@ -15,28 +15,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cliente.entity.dto.CartaoCreditoDTO;
-import com.cliente.services.CartaoCreditoServices;
+import com.cliente.entity.dto.DocumentoDTO;
+import com.cliente.services.DocumentoServices;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/v1/cartao")
+@RequestMapping("/api/v1/documentos")
 @Api(value = "API de cadastro de clientes")
-public class CartaoCreditoController {
-
+public class DocumentoController {
 	
 	@Autowired
-	private CartaoCreditoServices service;
-
-	@ApiOperation(value = "Listar todos os cartões")
+	private DocumentoServices service;
+	
+	@ApiOperation(value = "Listar todos os documentos")
 
 	@GetMapping
 
-	public ResponseEntity<List<CartaoCreditoDTO>> findAll() {
+	public ResponseEntity<List<DocumentoDTO>> findAll() {
 
-		List<CartaoCreditoDTO> dto = service.findAll();
+		List<DocumentoDTO> dto = service.findAll();
 
 		return dto.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(dto);
 
@@ -46,9 +45,9 @@ public class CartaoCreditoController {
 
 	@GetMapping(value = "/{id}")
 
-	public ResponseEntity<CartaoCreditoDTO> buscarPorId(@PathVariable(name = "id", required = true) Long id) {
+	public ResponseEntity<DocumentoDTO> buscarPorId(@PathVariable(name = "id", required = true) Long id) {
 
-		CartaoCreditoDTO dto = service.findById(id);
+		DocumentoDTO dto = service.findById(id);
 
 		return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
 
@@ -58,11 +57,11 @@ public class CartaoCreditoController {
 
 	@PostMapping
 
-	public ResponseEntity<CartaoCreditoDTO> salvar(@RequestBody CartaoCreditoDTO dto) {
+	public ResponseEntity<DocumentoDTO> salvar(@RequestBody DocumentoDTO dto) {
 
-		CartaoCreditoDTO credCard = service.insert(dto);
+		DocumentoDTO docDTO = service.insert(dto);
 
-		URI location = getUri(credCard.getId_cartao());
+		URI location = getUri(docDTO.getId_documento());
 
 		return ResponseEntity.created(location).build();
 
@@ -71,18 +70,18 @@ public class CartaoCreditoController {
 	private URI getUri(Long id) {
 		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 	}
-
+	
 	@ApiOperation(value = "Alteração de dados do endereço cadastrado")
 
 	@PutMapping(value = "/{id}")
 
-	public ResponseEntity<CartaoCreditoDTO> update(@PathVariable("id") Long id, @RequestBody CartaoCreditoDTO dto) {
+	public ResponseEntity<DocumentoDTO> update(@PathVariable("id") Long id, @RequestBody DocumentoDTO dto) {
 
-		dto.setId_cartao(id);
+		dto.setId_documento(id);
 
-		CartaoCreditoDTO credCard = service.update(dto, id);
+		DocumentoDTO docDTO = service.update(dto, id);
 
-		return credCard == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(credCard);
+		return docDTO == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(docDTO);
 
 	}
 	
@@ -97,4 +96,5 @@ public class CartaoCreditoController {
 		return ResponseEntity.ok().build();
 
 	}
+
 }

@@ -21,11 +21,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+@Entity
+@Table(name = "tb_cliente")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "tb_cliente")
 public class Cliente implements Parsable<ClienteDTO> {
 
 	@Id
@@ -42,12 +43,16 @@ public class Cliente implements Parsable<ClienteDTO> {
 	private List<Endereco> endereco;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_cartaoCredito")
+	@JoinColumn(name = "id_cartao")
 	private List<CartaoCredito> cartao;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_telefone")
     private List<Telefone> telefone;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_documento")
+    private List<Documento> documento;
 
 //	@OneToMany(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "id_usuario")
@@ -75,6 +80,12 @@ public class Cliente implements Parsable<ClienteDTO> {
 		List<CartaoCredito> listCartao = dto.getCartao().stream().map(cart -> new CartaoCredito(cart))
 				.collect(Collectors.toList());
 		this.setCartao(listCartao);
+		}
+		
+		if (dto.getDocumento() != null) {
+			List<Documento> listDoc = dto.getDocumento().stream().map(doc -> new Documento(doc))
+					.collect(Collectors.toList());
+			this.setDocumento(listDoc);
 		}
 	}
 
