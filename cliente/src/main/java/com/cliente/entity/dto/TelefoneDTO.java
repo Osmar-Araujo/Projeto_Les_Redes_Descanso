@@ -1,40 +1,32 @@
 package com.cliente.entity.dto;
 
-import java.io.Serializable;
-
-import com.cliente.entity.Cliente;
 import com.cliente.entity.Telefone;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-public class TelefoneDTO implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class TelefoneDTO implements Parsable<Telefone> {
 	
-	private static final long serialVersionUID = 1L;
 	
 	private Long id_telefone;
 	private String ddd;
 	private String numero;
-	private Cliente cliente;
+	private ClienteDTO cliente;
 	
-	public static TelefoneDTO consumeDTO(Telefone tel) {
-		return TelefoneDTO.builder().
-				id_telefone(tel.getId_telefone()).
-				ddd(tel.getDdd()).
-				numero(tel.getNumero()).
-				cliente(tel.getCliente()).
-				build();
-	}
 	
-	public static Telefone consumeEntity(TelefoneDTO teldto) {
-		return Telefone.builder().
-				id_telefone(teldto.getId_telefone()).
-				ddd(teldto.getDdd()).
-				numero(teldto.getNumero()).
-				cliente(teldto.getCliente()).
-				build();
+	public TelefoneDTO(Telefone tel) {
+		this.id_telefone = tel.getId_telefone();
+		this.ddd =tel.getDdd();
+		this.numero = tel.getNumero();
 	}
 
+
+	@Override
+	public Telefone convert() {
+		return new Telefone(this);
+	}
 }

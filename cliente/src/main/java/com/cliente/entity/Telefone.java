@@ -1,7 +1,5 @@
 package com.cliente.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cliente.entity.dto.Parsable;
+import com.cliente.entity.dto.TelefoneDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,9 +23,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Telefone implements Serializable {
+public class Telefone implements Parsable <TelefoneDTO> {
 	
-	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,4 +37,18 @@ public class Telefone implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "Id_cliente")
 	private Cliente cliente;
+
+	public Telefone (TelefoneDTO dto) {
+		this.ddd = dto.getDdd();
+		this.numero = dto.getNumero();
+		Cliente cli = new Cliente();
+		cli.setId_cliente(dto.getCliente().getId_cliente());
+		this.cliente = cli;
+	}
+	
+	
+	@Override
+	public TelefoneDTO convert() {
+		return new TelefoneDTO(this);
+	}
 }

@@ -28,7 +28,6 @@ public class EnderecoDTO implements Parsable<Endereco> {
 		this.cidade = entity.getCidade();
 		this.uf = entity.getUf();
 		this.CEP = entity.getCEP();
-		
 	}
 	
 

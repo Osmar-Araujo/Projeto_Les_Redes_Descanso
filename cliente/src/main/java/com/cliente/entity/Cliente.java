@@ -45,9 +45,9 @@ public class Cliente implements Parsable<ClienteDTO> {
 //	@JoinColumn(name = "id_cartaoCredito")
 //	private List<CartaoCredito> cartao;
 
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "id_telefone")
-//	private List<Telefone> telefone;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_telefone")
+    private List<Telefone> telefone;
 
 //	@OneToMany(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "id_usuario")
@@ -63,6 +63,12 @@ public class Cliente implements Parsable<ClienteDTO> {
 			List<Endereco> listEnd = dto.getEndereco().stream().map(end -> new Endereco(end))
 					.collect(Collectors.toList());
 			this.setEndereco(listEnd);
+		}
+		
+		if (dto.getTelefone() != null) {
+			List<Telefone> listTel = dto.getTelefone().stream().map(tel -> new Telefone(tel))
+					.collect(Collectors.toList());
+			this.setTelefone(listTel);
 		}
 		
 //		if (!dto.getCartao().isEmpty()) {
