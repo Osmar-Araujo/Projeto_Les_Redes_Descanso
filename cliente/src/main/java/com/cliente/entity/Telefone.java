@@ -33,6 +33,8 @@ public class Telefone implements Parsable <TelefoneDTO> {
 	
 	private String ddd;
 	private String numero;
+
+	private tipoTelefone tptel;
 	
 	@ManyToOne
 	@JoinColumn(name = "Id_cliente")
@@ -41,6 +43,7 @@ public class Telefone implements Parsable <TelefoneDTO> {
 	public Telefone (TelefoneDTO dto) {
 		this.ddd = dto.getDdd();
 		this.numero = dto.getNumero();
+		this.tptel =dto.getTptel();
 		Cliente cli = new Cliente();
 		cli.setId_cliente(dto.getCliente().getId_cliente());
 		this.cliente = cli;

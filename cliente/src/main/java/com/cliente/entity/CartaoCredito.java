@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.cliente.entity.dto.CartaoCreditoDTO;
-import com.cliente.entity.dto.ClienteDTO;
 import com.cliente.entity.dto.Parsable;
 
 import lombok.AllArgsConstructor;

@@ -30,9 +30,8 @@ public class ClienteDTO implements Parsable<Cliente> {
 	 
 	 private List<DocumentoDTO> documento;
 	 
-	 /* 
-	 * private List<UsuarioDTO> usuario;
-	 */
+	 private List<UsuarioDTO> usuario;
+	 
 
 	public ClienteDTO(Cliente entity) {
 		this.id_cliente = entity.getId_cliente();
@@ -40,6 +39,7 @@ public class ClienteDTO implements Parsable<Cliente> {
 		this.dtNascimento = entity.getDtNascimento();
 		this.genero = entity.getGenero();
 		this.status = entity.isStatus();
+		
 		if (entity.getEndereco() != null) {
 			List<EnderecoDTO> listEnd = entity.getEndereco().stream().map(end -> new EnderecoDTO(end))
 					.collect(Collectors.toList());
@@ -62,6 +62,12 @@ public class ClienteDTO implements Parsable<Cliente> {
 			List<DocumentoDTO> listDoc = entity.getDocumento().stream().map(doc -> new DocumentoDTO(doc))
 					.collect(Collectors.toList());
 			this.setDocumento(listDoc);
+		}
+		
+		if (entity.getUsuario() != null) {
+			List<UsuarioDTO> listUsuario = entity.getUsuario().stream().map(usu -> new UsuarioDTO(usu))
+					.collect(Collectors.toList());
+			this.setUsuario(listUsuario);
 		}
 
 	}

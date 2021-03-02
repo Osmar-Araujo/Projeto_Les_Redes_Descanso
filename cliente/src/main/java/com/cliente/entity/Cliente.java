@@ -54,9 +54,9 @@ public class Cliente implements Parsable<ClienteDTO> {
     @JoinColumn(name = "id_documento")
     private List<Documento> documento;
 
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "id_usuario")
-//	private List<Usuario> usuario;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_usuario")
+    private List<Usuario> usuario;
 
 	public Cliente(ClienteDTO dto) {
 		this.id_cliente = dto.getId_cliente();
@@ -64,6 +64,7 @@ public class Cliente implements Parsable<ClienteDTO> {
 		this.dtNascimento = dto.getDtNascimento();
 		this.genero = dto.getGenero();
 		this.status = dto.isStatus();
+		
 		if (dto.getEndereco() != null) {
 			List<Endereco> listEnd = dto.getEndereco().stream().map(end -> new Endereco(end))
 					.collect(Collectors.toList());
@@ -87,7 +88,12 @@ public class Cliente implements Parsable<ClienteDTO> {
 					.collect(Collectors.toList());
 			this.setDocumento(listDoc);
 		}
-	}
+		if (dto.getUsuario() != null) {
+			List<Usuario> listUsuario = dto.getUsuario().stream().map(usu -> new Usuario(usu))
+					.collect(Collectors.toList());
+			this.setUsuario(listUsuario);
+		}
+}
 
 	@Override
 	public ClienteDTO convert() {

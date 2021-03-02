@@ -1,7 +1,6 @@
 package com.cliente.entity.dto;
 
 import com.cliente.entity.CartaoCredito;
-import com.cliente.entity.Cliente;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

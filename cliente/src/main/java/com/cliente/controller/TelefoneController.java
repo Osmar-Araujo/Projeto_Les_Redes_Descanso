@@ -61,9 +61,9 @@ public class TelefoneController {
 
 	public ResponseEntity<TelefoneDTO> salvar(@RequestBody TelefoneDTO dto) {
 
-		TelefoneDTO end = service.insert(dto);
+		TelefoneDTO tel = service.insert(dto);
 
-		URI location = getUri(end.getId_telefone());
+		URI location = getUri(tel.getId_telefone());
 
 		return ResponseEntity.created(location).build();
 
