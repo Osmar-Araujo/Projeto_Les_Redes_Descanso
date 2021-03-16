@@ -42,6 +42,7 @@ public class Endereco implements Parsable<EnderecoDTO> {
 	private Cliente cliente;
 
 	public Endereco(EnderecoDTO dto) {
+		this.id = dto.getId_endereco();
 		this.logradouro = dto.getLogradouro();
 		this.nro = dto.getNro();
 		this.bairro = dto.getBairro();

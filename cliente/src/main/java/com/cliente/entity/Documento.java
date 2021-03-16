@@ -28,7 +28,7 @@ public class Documento implements Parsable <DocumentoDTO>{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id_documento", nullable = false, updatable = false)
+	@Column(name = "id_documento")
 	private Long id_documento;
 	private tipoDocumento tpdoc;
 	private String numero;
@@ -39,10 +39,14 @@ public class Documento implements Parsable <DocumentoDTO>{
 	private Cliente cliente;
 	
 	public Documento (DocumentoDTO dto) {
-		
+		this.id_documento = dto.getId_documento();
 		this.tpdoc = dto.getTpdoc();
 		this.numero = dto.getNumero();
 		this.nome = dto.getNome();
+		
+		Cliente cli = new Cliente();
+		cli.setId_cliente(dto.getCliente().getId_cliente());
+		this.cliente = cli;
 	}
 
 	@Override

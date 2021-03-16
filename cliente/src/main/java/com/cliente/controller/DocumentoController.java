@@ -41,7 +41,7 @@ public class DocumentoController {
 
 	}
 	
-	@ApiOperation(value = "Buscar cartão por id")
+	@ApiOperation(value = "Buscar documento por id")
 
 	@GetMapping(value = "/{id}")
 
@@ -53,7 +53,7 @@ public class DocumentoController {
 
 	}
 	
-	@ApiOperation(value = "Salvar um endereço na base")
+	@ApiOperation(value = "Salvar um documento na base")
 
 	@PostMapping
 
@@ -71,7 +71,7 @@ public class DocumentoController {
 		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 	}
 	
-	@ApiOperation(value = "Alteração de dados do endereço cadastrado")
+	@ApiOperation(value = "Alteração de dados do documento cadastrado")
 
 	@PutMapping(value = "/{id}")
 
@@ -85,7 +85,7 @@ public class DocumentoController {
 
 	}
 	
-	@ApiOperation(value = "Deleta um endereço pelo id")
+	@ApiOperation(value = "Deleta um documento pelo id")
 
 	@DeleteMapping(value = "/{id}")
 
@@ -96,5 +96,4 @@ public class DocumentoController {
 		return ResponseEntity.ok().build();
 
 	}
-
 }

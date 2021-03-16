@@ -19,7 +19,6 @@ public interface GenericService<T extends Parsable<DTO>, ID, DTO extends Parsabl
 		if (list.isEmpty())
 			new ObjectNotFoundException("Nenhum registro encontrado");
 		return list.stream().map(x -> x.convert()).collect(Collectors.toList());
-
 	}
 
 	default DTO findById(ID id) {

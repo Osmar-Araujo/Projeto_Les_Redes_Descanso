@@ -33,7 +33,6 @@ public class Telefone implements Parsable <TelefoneDTO> {
 	
 	private String ddd;
 	private String numero;
-
 	private tipoTelefone tptel;
 	
 	@ManyToOne
@@ -41,6 +40,7 @@ public class Telefone implements Parsable <TelefoneDTO> {
 	private Cliente cliente;
 
 	public Telefone (TelefoneDTO dto) {
+		this.id_telefone = dto.getId_telefone();
 		this.ddd = dto.getDdd();
 		this.numero = dto.getNumero();
 		this.tptel =dto.getTptel();

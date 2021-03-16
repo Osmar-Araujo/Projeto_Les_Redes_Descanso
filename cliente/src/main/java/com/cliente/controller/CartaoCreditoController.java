@@ -54,7 +54,7 @@ public class CartaoCreditoController {
 
 	}
 	
-	@ApiOperation(value = "Salvar um endereço na base")
+	@ApiOperation(value = "Salvar um cartão na base")
 
 	@PostMapping
 
@@ -72,7 +72,7 @@ public class CartaoCreditoController {
 		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 	}
 
-	@ApiOperation(value = "Alteração de dados do endereço cadastrado")
+	@ApiOperation(value = "Alteração de dados do cartão cadastrado")
 
 	@PutMapping(value = "/{id}")
 

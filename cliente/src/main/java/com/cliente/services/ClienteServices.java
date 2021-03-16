@@ -33,5 +33,5 @@ public class ClienteServices implements GenericService<Cliente, Long, ClienteDTO
 		cliente.setStatus(true);
 		return new ClienteDTO((repository.save(cliente)));
 	}
-
+	
 }

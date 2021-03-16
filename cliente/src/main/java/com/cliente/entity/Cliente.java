@@ -31,7 +31,7 @@ public class Cliente implements Parsable<ClienteDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_cliente")
+	@Column(name = "id_cliente", nullable = false, updatable = false)
 	private Long id_cliente;
 	private String nome;
 	private Date dtNascimento;

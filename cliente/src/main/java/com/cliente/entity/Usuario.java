@@ -38,6 +38,7 @@ public class Usuario implements Parsable<UsuarioDTO> {
 	private Cliente cliente;
 
 	public Usuario(UsuarioDTO dto) {
+		this.id_usario = dto.getId_usuario();
 		this.email = dto.getEmail();
 		this.senha = dto.getSenha();
 
